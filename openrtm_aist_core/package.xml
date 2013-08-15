@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package>
+  <name>openrtm_common</name>
+  <version>3.1.5</version>
+  <description>
+   <p>Metapackage that contains commonly used <a href = "http://ieeexplore.ieee.org/xpl/login.jsp?tp=&amp;arnumber=1545521&amp;url=http%3A%2F%2Fieeexplore.ieee.org%2Fiel5%2F10375%2F32977%2F01545521.pdf%3Farnumber%3D1545521">RT-Middleware</a>-based modules. Althogh each of these packages by themselves are ROS-agnostic, you can use them over ROS together with the packages in <a href = "http://www.ros.org/wiki/rtmros_common">rtmros_common</a>.</p>
+  </description>
+
+  <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</maintainer>
+  <maintainer email="iisaito@kinugarage.com">Isao Isaac Saito</maintainer>
+  <author email="iisaito@kinugarage.com">Isao Isaac Saito</author>
+  <license>EPL</license>
+
+  <url type="website">http://ros.org/wiki/openrtm_common</url>
+  <url type="repository">https://code.google.com/p/rtm-ros-robotics</url>
+  <url type="bugtracker">https://code.google.com/p/rtm-ros-robotics/issues/list</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>hrpsys</run_depend>
+  <run_depend>openhrp3</run_depend>
+  <run_depend>openrtm_aist_python</run_depend>
+  <run_depend>openrtm_aist</run_depend>
+  <run_depend>rtctree</run_depend>
+  <run_depend>rtsprofile</run_depend>
+  <run_depend>rtshell</run_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>
