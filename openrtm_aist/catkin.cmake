@@ -7,11 +7,15 @@ project(openrtm_aist)
 find_package(catkin REQUIRED)
 
 # Build OpenRTM
-execute_process(COMMAND cmake -E chdir ${PROJECT_SOURCE_DIR} make -f Makefile.openrtm_aist installed
-                COMMAND cmake -E copy_directory ${PROJECT_SOURCE_DIR}/bin ${CATKIN_DEVEL_PREFIX}/lib/${PROJECT_NAME}/bin # force copy under devel for catkin_package
+execute_process(COMMAND cmake -E chdir ${PROJECT_SOURCE_DIR} make -f Makefile.openrtm_aist
                 RESULT_VARIABLE _make_failed)
 if (_make_failed)
-  message(FATAL_ERROR "Build of failed")
+  message(FATAL_ERROR "Build of openrtm_aist failed")
+endif(_make_failed)
+execute_process(COMMAND cmake -E copy_directory ${PROJECT_SOURCE_DIR}/bin ${CATKIN_DEVEL_PREFIX}/lib/${PROJECT_NAME}/bin # force copy under devel for catkin_package
+                RESULT_VARIABLE _make_failed)
+if (_make_failed)
+  message(FATAL_ERROR "Post build of openrtm_aist failed")
 endif(_make_failed)
 
 ## System dependencies are found with CMake's conventions
@@ -77,9 +81,6 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(omniorb REQUIRED omniORB4)
 pkg_check_modules(omnidynamic REQUIRED omniDynamic4)
 # copy from rtm-config --cflags and rtm-config --libs
-file(MAKE_DIRECTORY include/coil-1.1) # fake catkin_package
-file(MAKE_DIRECTORY include/openrtm-1.1) # fake catkin_package
-file(MAKE_DIRECTORY include/openrtm-1.1/rtm/idl) # fake catkin_package
 catkin_package(
   DEPENDS omniorb omnidynamic
   INCLUDE_DIRS include include/coil-1.1 include/openrtm-1.1 include/openrtm-1.1/rtm/idl
