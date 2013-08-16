@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>openrtm_common</name>
-  <version>1.1.1</version>
+  <version>1.1.0</version>
   <description>
    <p>Metapackage that contains commonly used <a href = "http://ieeexplore.ieee.org/xpl/login.jsp?tp=&amp;arnumber=1545521&amp;url=http%3A%2F%2Fieeexplore.ieee.org%2Fiel5%2F10375%2F32977%2F01545521.pdf%3Farnumber%3D1545521">RT-Middleware</a>-based modules. Althogh each of these packages by themselves are ROS-agnostic, you can use them over ROS together with the packages in <a href = "http://www.ros.org/wiki/rtmros_common">rtmros_common</a>.</p>
   </description>

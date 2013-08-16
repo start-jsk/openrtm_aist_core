@@ -1,10 +1,11 @@
 <?xml version="1.0"?>
 <package>
   <name>openrtm_aist_python</name>
-  <version>1.1.1</version>
-  <description>The openrtm_aist_python package
+  <version>1.1.0</version>
+  <description>
+   <p>Python binding of OpenRTM-AIST (see <a href = "http://www.ros.org/wiki/openrtm_aist">openrtm_aist</a> for further information).</p>
 
-   Version was bumped from 1.1.0 when the package was catkinized and released into ROS buildfarm via bloom.
+   <p>Note the its original development and maintainance is happening in AIST's repository. The URLs of the development repository and the issue tracker URLs shown is a port to rtm-ros-robotics project.</p>
   </description>
 
   <maintainer email="k-okada@jsk.t.u-tokyo.ac.jp">Kei Okada</maintainer>
