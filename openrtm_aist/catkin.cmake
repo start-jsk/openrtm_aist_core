@@ -148,13 +148,14 @@ install(DIRECTORY bin
 )
 
 #debug codes
-#get_cmake_property(_variableNames VARIABLES)
-#foreach (_variableName ${_variableNames})
-#  message(STATUS "${_variableName}=${${_variableName}}")
-#endforeach()
+get_cmake_property(_variableNames VARIABLES)
+foreach (_variableName ${_variableNames})
+  message(STATUS "${_variableName}=${${_variableName}}")
+endforeach()
 # CODE to fix path in rtm-config
 install(CODE
  "execute_process(COMMAND echo \"post process...\")
+  execute_process(COMMAND env)
   execute_process(COMMAND echo \" fix $ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/lib/${PROJECT_NAME}/bin/rtm-config\")
   execute_process(COMMAND echo \" sed s@${openrtm_aist_SOURCE_DIR}@${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME}@g\")
   execute_process(COMMAND sed -i s@${openrtm_aist_SOURCE_DIR}@${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME}@g $ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/lib/${PROJECT_NAME}/bin/rtm-config) # basic
