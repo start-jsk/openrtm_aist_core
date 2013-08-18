@@ -155,10 +155,10 @@ install(DIRECTORY bin
 # CODE to fix path in rtm-config
 install(CODE
  "execute_process(COMMAND echo \"post process...\")
-  execute_process(COMMAND echo \" fix \${DESTDIR}/${CMAKE_INSTALL_PREFIX}/lib/${PROJECT_NAME}/bin/rtm-config\")
+  execute_process(COMMAND echo \" fix $ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/lib/${PROJECT_NAME}/bin/rtm-config\")
   execute_process(COMMAND echo \" sed s@${openrtm_aist_SOURCE_DIR}@${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME}@g\")
-  execute_process(COMMAND sed -i s@${openrtm_aist_SOURCE_DIR}@${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME}@g \${DESTDIR}/${CMAKE_INSTALL_PREFIX}/lib/${PROJECT_NAME}/bin/rtm-config) # basic
-  execute_process(COMMAND sed -i s@exec_prefix=@exec_prefix=\"${CMAKE_INSTALL_PREFIX}\"\\ \\\#@g \${DESTDIR}/${CMAKE_INSTALL_PREFIX}/lib/${PROJECT_NAME}/bin/rtm-config) # for -cflags
+  execute_process(COMMAND sed -i s@${openrtm_aist_SOURCE_DIR}@${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME}@g $ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/lib/${PROJECT_NAME}/bin/rtm-config) # basic
+  execute_process(COMMAND sed -i s@exec_prefix=@exec_prefix=\"${CMAKE_INSTALL_PREFIX}\"\\ \\\#@g $ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/lib/${PROJECT_NAME}/bin/rtm-config) # for -cflags
   ")
 
 
@@ -173,10 +173,10 @@ install(DIRECTORY lib/ # lib will create devel/lib/lib/*, so lib/ is important
 # remove catkin generate openrtm_aist.pc
 install(CODE
   "execute_process(COMMAND echo \"use openrtm-asit.pc provided by OpenRTM, openrtm_aist.pc is provided catkin.pc and do not use this\")
-   #execute_process(COMMAND cmake -E remove -f \${DESTDIR}/${CMAKE_INSTALL_PREFIX}/lib/pkgconfig/openrtm_aist.pc)
-   #execute_process(COMMAND cmake -E create_symlink openrtm-aist.pc \${DESTDIR}/${CMAKE_INSTALL_PREFIX}/lib/pkgconfig/openrtm_aist.pc)
-   execute_process(COMMAND sed -i s@${openrtm_aist_SOURCE_DIR}@${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME}@g \${DESTDIR}/${CMAKE_INSTALL_PREFIX}/lib/pkgconfig/openrtm-aist.pc) # basic
-   execute_process(COMMAND sed -i s@exec_prefix=@exec_prefix=${CMAKE_INSTALL_PREFIX}\\ \\\#@g \${DESTDIR}/${CMAKE_INSTALL_PREFIX}/lib/pkgconfig/openrtm-aist.pc) # for -cflags
+   #execute_process(COMMAND cmake -E remove -f $ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/lib/pkgconfig/openrtm_aist.pc)
+   #execute_process(COMMAND cmake -E create_symlink openrtm-aist.pc $ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/lib/pkgconfig/openrtm_aist.pc)
+   execute_process(COMMAND sed -i s@${openrtm_aist_SOURCE_DIR}@${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME}@g $ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/lib/pkgconfig/openrtm-aist.pc) # basic
+   execute_process(COMMAND sed -i s@exec_prefix=@exec_prefix=${CMAKE_INSTALL_PREFIX}\\ \\\#@g $ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/lib/pkgconfig/openrtm-aist.pc) # for -cflags
 ")
 
 install(DIRECTORY share
