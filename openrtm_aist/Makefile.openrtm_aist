@@ -1,6 +1,6 @@
 all: installed
 
-INSTALL_DIR = ${CURDIR}
+INSTALL_DIR ?= ${CURDIR}
 FILENAME    = OpenRTM-aist-1.1.0-RELEASE.tar.gz
 TARBALL     = build/$(FILENAME)
 TARBALL_URL = http://www.openrtm.org/pub/OpenRTM-aist/cxx/1.1.0/$(FILENAME)
