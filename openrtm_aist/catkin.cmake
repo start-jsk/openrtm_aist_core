@@ -76,18 +76,18 @@ install(DIRECTORY ${CATKIN_DEVEL_PREFIX}/share/openrtm-1.1
 #endforeach()
 # CODE to fix path in rtm-config and openrtm-aist.pc
 install(CODE
- "execute_process(COMMAND echo \" fix \$ENV{DESTDIR}/${CATKIN_PACKAGE_BIN_DESTINATION}/rtm-config\")
+ "execute_process(COMMAND echo \" fix \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${CATKIN_PACKAGE_BIN_DESTINATION}/bin/rtm-config\")
   execute_process(COMMAND echo \" sed s@${CATKIN_DEVEL_PREFIX}@${CMAKE_INSTALL_PREFIX}@g\")
-  execute_process(COMMAND sed -i s@^prefix=\"${CATKIN_DEVEL_PREFIX}\"@prefix=\"${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME}\"@g \$ENV{DESTDIR}/${CATKIN_PACKAGE_BIN_DESTINATION}/rtm-config) # basic
-  execute_process(COMMAND sed -i s@${CATKIN_DEVEL_PREFIX}@${CMAKE_INSTALL_PREFIX}@g \$ENV{DESTDIR}/${CATKIN_PACKAGE_BIN_DESTINATION}/rtm-config) # basic
-  execute_process(COMMAND sed -i s@exec_prefix=@exec_prefix=\"${CMAKE_INSTALL_PREFIX}\"\\ \\\#@g \$ENV{DESTDIR}/${CATKIN_PACKAGE_BIN_DESTINATION}/rtm-config) # for -cflags
+  execute_process(COMMAND sed -i s@^prefix=\"${CATKIN_DEVEL_PREFIX}\"@prefix=\"${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME}\"@g \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${CATKIN_PACKAGE_BIN_DESTINATION}/bin/rtm-config) # basic
+  execute_process(COMMAND sed -i s@${CATKIN_DEVEL_PREFIX}@${CMAKE_INSTALL_PREFIX}@g \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${CATKIN_PACKAGE_BIN_DESTINATION}/bin/rtm-config) # basic
+  execute_process(COMMAND sed -i s@exec_prefix=@exec_prefix=\"${CMAKE_INSTALL_PREFIX}\"\\ \\\#@g \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${CATKIN_PACKAGE_BIN_DESTINATION}/bin/rtm-config) # for -cflags
   ")
 
 
 install(CODE
-  "execute_process(COMMAND echo \"fix openrtm-aist.pc path ${CATKIN_DEVEL_PREFIX} -> ${CMAKE_INSTALL_PREFIX}\")
-  execute_process(COMMAND sed -i s@exec_prefix=@exec_prefix=${CMAKE_INSTALL_PREFIX}\\ \\\#@g $ENV{DESTDIR}/${CATKIN_PACKAGE_LIB_DESTINATION}/pkgconfig/openrtm-aist.pc) # for --libs
-   execute_process(COMMAND sed -i s@${CATKIN_DEVEL_PREFIX}@${CMAKE_INSTALL_PREFIX}@g $ENV{DESTDIR}/${CATKIN_PACKAGE_LIB_DESTINATION}/pkgconfig/openrtm-aist.pc) # basic
-   execute_process(COMMAND sed -i s@{prefix}@{prefix}/include/openrtm_aist@g $ENV{DESTDIR}/${CATKIN_PACKAGE_LIB_DESTINATION}/pkgconfig/openrtm-aist.pc) # basic
+  "execute_process(COMMAND echo \"fix \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${CATKIN_PACKAGE_LIB_DESTINATION}/pkgconfig/openrtm-aist.pc path ${CATKIN_DEVEL_PREFIX} -> ${CMAKE_INSTALL_PREFIX}\")
+  execute_process(COMMAND sed -i s@exec_prefix=@exec_prefix=${CMAKE_INSTALL_PREFIX}\\ \\\#@g $ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${CATKIN_PACKAGE_LIB_DESTINATION}/pkgconfig/openrtm-aist.pc) # for --libs
+   execute_process(COMMAND sed -i s@${CATKIN_DEVEL_PREFIX}@${CMAKE_INSTALL_PREFIX}@g $ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${CATKIN_PACKAGE_LIB_DESTINATION}/pkgconfig/openrtm-aist.pc) # basic
+   execute_process(COMMAND sed -i s@{prefix}@{prefix}/include/openrtm_aist@g $ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${CATKIN_PACKAGE_LIB_DESTINATION}/pkgconfig/openrtm-aist.pc) # basic
 ")
 
