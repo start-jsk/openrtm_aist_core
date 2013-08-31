@@ -12,12 +12,26 @@ execute_process(
 if (_make_failed)
   message(FATAL_ERROR "Compile openrtm_aist failed: ${_make_failed}")
 endif(_make_failed)
-  # binary files intentionally goes to ${CATKIN_PACKAGE_DESTINATION}/bin
+
+# binary files intentionally goes to ${CATKIN_PACKAGE_BIN_DESTINATION}/lib
 execute_process(
   COMMAND sh -c "test -e ${CATKIN_DEVEL_PREFIX}/lib/${PROJECT_NAME}/bin || (mkdir -p ${CATKIN_DEVEL_PREFIX}/lib/${PROJECT_NAME}; mv ${CATKIN_DEVEL_PREFIX}/bin/ ${CATKIN_DEVEL_PREFIX}/lib/${PROJECT_NAME})"
+  RESULT_VARIABLE _make_failed
   OUTPUT_VARIABLE _copy_bin)
-message("${_copy_bin}")
+message("copy binary files ${_copy_bin}")
+if (_make_failed)
+  message(FATAL_ERROR "Copy openrtm_aist/bin failed: ${_make_failed}")
+endif(_make_failed)
 
+# shared files intentionally goes to ${CATKIN_PACKAGE_SHARE_DESTINATION}
+execute_process(
+  COMMAND sh -c "test -e ${CATKIN_DEVEL_PREFIX}/share/${PROJECT_NAME}/share || (mkdir -p ${CATKIN_DEVEL_PREFIX}/share/${PROJECT_NAME}/share; mv ${CATKIN_DEVEL_PREFIX}/share/openrtm-1.1 ${CATKIN_DEVEL_PREFIX}/share/${PROJECT_NAME}/share/)"
+  RESULT_VARIABLE _make_failed
+  OUTPUT_VARIABLE _copy_share)
+message("copy shared files ${_copy_share}")
+if (_make_failed)
+  message(FATAL_ERROR "Copy openrtm_aist/share failed: ${_make_failed}")
+endif(_make_failed)
 
 
 ###################################
@@ -64,8 +78,8 @@ install(DIRECTORY ${CATKIN_DEVEL_PREFIX}/lib/ # lib will create devel/lib/lib/*,
   USE_SOURCE_PERMISSIONS  # set executable
 )
 
-install(DIRECTORY ${CATKIN_DEVEL_PREFIX}/share/openrtm-1.1
-  DESTINATION ${CATKIN_GLOBAL_SHARE_DESTINATION}
+install(DIRECTORY ${CATKIN_DEVEL_PREFIX}/share/openrtm_aist/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
 
