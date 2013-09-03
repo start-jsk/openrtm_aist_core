@@ -1,0 +1,17 @@
+--- utils/rtc-template/rtc-template.org	2012-05-24 23:18:16.281803290 +0900
++++ utils/rtc-template/rtc-template	2013-09-03 10:54:30.272286404 +0900
+@@ -720,12 +720,12 @@
+ 	for f in svcidls.keys():
+ 		idl = {}
+ 		idl["idl_fname"] = f
+-		idl["idl_basename"] = f.split(".")[0]
++		idl["idl_basename"] = os.path.splitext(f)[0]
+ 		dict["service_idl"].append(idl)
+ 	for f in cnsidls.keys():
+ 		idl = {}
+ 		idl["idl_fname"] = f
+-		idl["idl_basename"] = f.split(".")[0]
++		idl["idl_basename"] = os.path.splitext(f)[0]
+ 		dict["consumer_idl"].append(idl)
+ 	return
+ 
