@@ -82,6 +82,10 @@ install(DIRECTORY ${CATKIN_DEVEL_PREFIX}/share/openrtm_aist/
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
+install(DIRECTORY ${CATKIN_DEVEL_PREFIX}/share/openrtm_aist/share/openrtm-1.1/example/
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}/example
+  USE_SOURCE_PERMISSIONS  # set executable
+)
 
 #debug codes
 #get_cmake_property(_variableNames VARIABLES)
