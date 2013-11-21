@@ -20,6 +20,9 @@ endif(_make_failed)
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
 catkin_python_setup()
+execute_process(
+  COMMAND sed -i s@${PROJECT_SOURCE_DIR}/lib/python2.7/site-packages@${PROJECT_SOURCE_DIR}/lib/python2.7/site-packages\;${PROJECT_SOURCE_DIR}/lib/python2.7/site-packages/OpenRTM_aist/RTM_IDL@ ${CATKIN_DEVEL_PREFIX}/lib/python2.7/dist-packages/OpenRTM_aist/__init__.py
+)
 
 #######################################
 ## Declare ROS messages and services ##
