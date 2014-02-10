@@ -11,5 +11,5 @@ MD5SUM_FILE = $(FILENAME).md5sum
 include ${CURDIR}/download_unpack_build.mk
 
 installed: $(SOURCE_DIR)/unpacked
-	cd $(SOURCE_DIR) && ./configure --enable-debug --prefix=${INSTALL_DIR} && make && make install
+	(cd $(SOURCE_DIR) && ./configure --enable-debug --prefix=${INSTALL_DIR} && make && make install) 2>&1 | tee ${CURDIR}/compile.log | awk 'NR%10==0' || tail -100 ${CURDIR}/compile.log
 	touch installed

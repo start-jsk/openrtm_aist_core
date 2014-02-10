@@ -12,5 +12,5 @@ include ${CURDIR}/download_unpack_build.mk
 PYTHONDIR   = `python -c 'import sys; print "python%s"%sys.version[:3]'`
 
 installed: $(SOURCE_DIR)/unpacked
-	cd $(SOURCE_DIR) && python ./setup.py build && python ./setup.py install --prefix=$(INSTALL_DIR)
+	(cd $(SOURCE_DIR) && python ./setup.py build && python ./setup.py install --prefix=$(INSTALL_DIR)) 2>&1 | tee ${CURDIR}/compile.log | awk 'NR%10==0' || tail -100 ${CURDIR}/compile.log
 	touch installed
