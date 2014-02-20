@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(openrtm_aist)
 
 ## Find catkin macros and libraries
-find_package(catkin REQUIRED)
+find_package(catkin REQUIRED rostest)
 
 # Compile OpenRTM
 execute_process(
@@ -109,3 +109,4 @@ install(CODE
    execute_process(COMMAND sed -i s@{prefix}@{prefix}/include/openrtm_aist@g \$ENV{DESTDIR}/${CMAKE_INSTALL_PREFIX}/${CATKIN_PACKAGE_LIB_DESTINATION}/pkgconfig/openrtm-aist.pc) # basic
 ")
 
+add_rostest(test/test_openrtm_aist.test)
