@@ -1,11 +1,14 @@
 all: installed
 
 INSTALL_DIR ?= ${CURDIR}
+INSTALL_BIN_DIR = ${CURDIR}
+INSTALL_DATA_DIR = ${CURDIR}
+PATCH_DIR   = ${CURDIR}
 FILENAME    = OpenRTM-aist-1.1.0-RELEASE.tar.gz
 TARBALL     = build/$(FILENAME)
 TARBALL_URL = http://www.openrtm.org/pub/OpenRTM-aist/cxx/1.1.0/$(FILENAME)
 SOURCE_DIR  = build/OpenRTM-aist-1.1.0
-TARBALL_PATCH = patch/Manager.cpp.patch2 patch/ArtEC-1.1.0.patch patch/rtc-template.patch
+TARBALL_PATCH = ${PATCH_DIR}/patch/Manager.cpp.patch2 ${PATCH_DIR}/patch/ArtEC-1.1.0.patch ${PATCH_DIR}/patch/rtc-template.patch
 UNPACK_CMD  = tar xzf
 MD5SUM_FILE = $(FILENAME).md5sum
 MK_DIR      = $(shell rospack find mk)
@@ -13,5 +16,5 @@ MK_DIR      = $(shell rospack find mk)
 include $(MK_DIR)/download_unpack_build.mk
 
 installed: $(SOURCE_DIR)/unpacked
-	(cd $(SOURCE_DIR) && ./configure --enable-debug --prefix=${INSTALL_DIR} && make && make install) 2>&1 | tee ${CURDIR}/compile.log | awk 'NR%10==0' || tail -100 ${CURDIR}/compile.log
+	cd $(SOURCE_DIR) && ./configure --enable-debug --prefix=${INSTALL_DIR} --bindir=${INSTALL_BIN_DIR} --datarootdir=${INSTALL_DATA_DIR} && make && make install
 	touch installed

@@ -1,6 +1,7 @@
 all: installed
 
 INSTALL_DIR = ${CURDIR}
+INSTALL_SCRIPTS_DIR = ${CURDIR}
 FILENAME    = OpenRTM-aist-Python-1.1.0-RC1.tar.gz
 TARBALL     = build/$(FILENAME)
 TARBALL_URL = http://www.openrtm.org/pub/OpenRTM-aist/python/1.1.0/$(FILENAME)
@@ -13,5 +14,5 @@ include $(MK_DIR)/download_unpack_build.mk
 PYTHONDIR   = `python -c 'import sys; print "python%s"%sys.version[:3]'`
 
 installed: $(SOURCE_DIR)/unpacked
-	(cd $(SOURCE_DIR) && python ./setup.py build && python ./setup.py install --prefix=$(INSTALL_DIR)) 2>&1 | tee ${CURDIR}/compile.log | awk 'NR%10==0' || tail -100 ${CURDIR}/compile.log
+	cd $(SOURCE_DIR) && python ./setup.py build && python ./setup.py install --prefix=$(INSTALL_DIR) --install-scripts $(INSTALL_SCRIPTS_DIR) --install-layout=deb 
 	touch installed

@@ -4,49 +4,33 @@ project(openrtm_aist_python)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS)
-
-## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(catkin REQUIRED COMPONENTS mk rostest)
 
 # Build openrtm_aist_python
-execute_process(COMMAND cmake -E chdir ${PROJECT_SOURCE_DIR} make -f Makefile.openrtm_aist_python
-                RESULT_VARIABLE _make_failed)
-if (_make_failed)
-  message(FATAL_ERROR "Build of OpenRTM Python failed")
-endif(_make_failed)
+# <devel>/lib/<package>/bin
+# <devel>/lib/python2.7/dist-packages
+# <src>/<package>/share
+if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/installed)
+  execute_process(
+    COMMAND cmake -E chdir ${CMAKE_CURRENT_BINARY_DIR}
+    make -f ${PROJECT_SOURCE_DIR}/Makefile.openrtm_aist_python
+    INSTALL_DIR=${CATKIN_DEVEL_PREFIX}
+    INSTALL_SCRIPTS_DIR=${CATKIN_DEVEL_PREFIX}/lib/${PROJECT_NAME}
+    MK_DIR=${mk_PREFIX}/share/mk
+    MD5SUM_FILE=${PROJECT_SOURCE_DIR}/OpenRTM-aist-Python-1.1.0-RC1.tar.gz.md5sum
+    RESULT_VARIABLE _make_failed)
+  if (_make_failed)
+    message(FATAL_ERROR "Build of OpenRTM Python failed")
+  endif(_make_failed)
+endif()
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
-catkin_python_setup()
-execute_process(
-  COMMAND sed -i s@${PROJECT_SOURCE_DIR}/lib/python2.7/site-packages@${PROJECT_SOURCE_DIR}/lib/python2.7/site-packages\;${PROJECT_SOURCE_DIR}/lib/python2.7/site-packages/OpenRTM_aist/RTM_IDL@ ${CATKIN_DEVEL_PREFIX}/lib/python2.7/dist-packages/OpenRTM_aist/__init__.py
-)
-
-#######################################
-## Declare ROS messages and services ##
-#######################################
-
-## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
-
-## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
-
-## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
-# )
+#catkin_python_setup()
+#execute_process(
+#  COMMAND sed -i s@${PROJECT_SOURCE_DIR}/lib/python2.7/site-packages@${PROJECT_SOURCE_DIR}/lib/python2.7/site-packages\;${PROJECT_SOURCE_DIR}/lib/python2.7/site-packages/OpenRTM_aist/RTM_IDL@ ${CATKIN_DEVEL_PREFIX}/lib/python2.7/dist-packages/OpenRTM_aist/__init__.py
+#)
 
 ###################################
 ## catkin specific configuration ##
@@ -64,34 +48,6 @@ catkin_package(
 #  DEPENDS system_lib
 )
 
-###########
-## Build ##
-###########
-
-## Specify additional locations of header files
-## Your package locations should be listed before other locations
-# include_directories(include)
-include_directories(
-  ${catkin_INCLUDE_DIRS}
-)
-
-## Declare a cpp library
-# add_library(openrtm_aist_python
-#   src/${PROJECT_NAME}/openrtm_aist_python.cpp
-# )
-
-## Declare a cpp executable
-# add_executable(openrtm_aist_python_node src/openrtm_aist_python_node.cpp)
-
-## Add cmake target dependencies of the executable/library
-## as an example, message headers may need to be generated before nodes
-# add_dependencies(openrtm_aist_python_node openrtm_aist_python_generate_messages_cpp)
-
-## Specify libraries to link a library or executable target against
-# target_link_libraries(openrtm_aist_python_node
-#   ${catkin_LIBRARIES}
-# )
-
 #############
 ## Install ##
 #############
@@ -99,40 +55,17 @@ include_directories(
 # all install targets should use catkin DESTINATION variables
 # See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
 
-## Mark executable scripts (Python etc.) for installation
-## in contrast to setup.py, you can choose the destination
-# install(PROGRAMS
-#   scripts/my_python_script
-#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
-
-## Mark executables and/or libraries for installation
-# install(TARGETS openrtm_aist_python openrtm_aist_python_node
-#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
-
-## Mark cpp header files for installation
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-#   FILES_MATCHING PATTERN "*.h"
-#   PATTERN ".svn" EXCLUDE
-# )
-
-## Mark other files for installation (e.g. launch and bag files, etc.)
-# install(FILES
-#   # myfile1
-#   # myfile2
-#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-# )
-
-# bin goes share/openrtm_aist_python so that it can be invoked from rosrun
-install(DIRECTORY bin
+install(
+  DIRECTORY ${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_PYTHON_DESTINATION}/OpenRTM_aist/
+  DESTINATION ${CATKIN_GLOBAL_PYTHON_DESTINATION}/OpenRTM_aist)
+install(
+  DIRECTORY ${CATKIN_DEVEL_PREFIX}/lib/${PROJECT_NAME}/
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+  USE_SOURCE_PERMISSIONS)
+install(
+  DIRECTORY test
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-  USE_SOURCE_PERMISSIONS  # set executable
-)
-
+  USE_SOURCE_PERMISSIONS)
 
 #############
 ## Testing ##
@@ -146,3 +79,5 @@ install(DIRECTORY bin
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+add_rostest(test/test_openrtm_aist_python.test)

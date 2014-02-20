@@ -18,7 +18,6 @@ int main (int argc, char** argv)
 """
 from subprocess import call, check_output, Popen, PIPE
 
-PID = 0
 ## A sample python unit test
 class TestCompile(unittest.TestCase):
     ## test 1 == 1
@@ -33,10 +32,16 @@ class TestCompile(unittest.TestCase):
         self.assertTrue(ret==0)
         self.assertTrue(True)
 
-    def _test_share(self):
+    def test_share(self):
         # check if rtshell runs
         print os.path.join(check_output(['rospack','find','openrtm_aist']).rstrip(), "share/openrtm-1.1/example/rtc.conf")
         self.assertTrue(os.path.exists(os.path.join(check_output(['rospack','find','openrtm_aist']).rstrip(), "share/openrtm-1.1/example/rtc.conf")))
+
+    def test_example(self):
+        print os.path.join(check_output(['pkg-config','openrtm-aist','--variable=rtm_exampledir']).rstrip(), "SeqInComp")
+        self.assertTrue(os.path.exists(os.path.join(check_output(['pkg-config','openrtm-aist','--variable=rtm_exampledir']).rstrip(), "SeqInComp")))
+        print os.path.join(check_output(['rosrun','openrtm_aist','rtm-config','--rtm-exampledir']).rstrip(), "SeqInComp")
+        self.assertTrue(os.path.exists(os.path.join(check_output(['rosrun','openrtm_aist','rtm-config','--rtm-exampledir']).rstrip(), "SeqInComp")))
 
 if __name__ == '__main__':
     import rostest
