@@ -1,0 +1,3 @@
+<launch>
+  <test test-name="openrtm_compile_test" pkg="openrtm_aist_python" type="test_openrtm_aist_python.py" />
+</launch>

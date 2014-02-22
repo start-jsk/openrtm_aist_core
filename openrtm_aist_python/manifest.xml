@@ -15,6 +15,7 @@
 
   <rosdep name="python-omniorb" />
   <rosdep name="mk" />
+  <rosdep name="rostest" />
 
 </package>
 
