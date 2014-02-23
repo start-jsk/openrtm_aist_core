@@ -39,7 +39,10 @@ catkin_package(
 
 # ## Mark cpp header files for installation
 install(
-  DIRECTORY ${CATKIN_DEVEL_PREFIX}/include/
+  DIRECTORY ${CATKIN_DEVEL_PREFIX}/include/openrtm-1.1
+  DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION})
+install(
+  DIRECTORY ${CATKIN_DEVEL_PREFIX}/include/coil-1.1
   DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION})
 install(
   DIRECTORY ${CATKIN_DEVEL_PREFIX}/lib/
