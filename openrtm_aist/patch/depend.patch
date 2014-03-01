@@ -1,0 +1,68 @@
+--- utils/rtm-config/Makefile.in.org	2014-03-01 16:43:12.917067572 +0900
++++ utils/rtm-config/Makefile.in	2014-03-01 16:43:23.165067953 +0900
+@@ -491,7 +491,7 @@
+ 	uninstall-binSCRIPTS uninstall-pkgconfigDATA
+ 
+ 
+-all-local:
++all-local: rtm-config
+ 	chmod 755 rtm-config
+ 
+ clean-local:
+--- src/lib/coil/posix/coil/Makefile.in.org	2014-03-01 16:52:31.145088307 +0900
++++ src/lib/coil/posix/coil/Makefile.in	2014-03-01 16:52:47.085088899 +0900
+@@ -670,11 +670,10 @@
+ 
+ 
+ $(COIL_COMMON_SRC):
+-	cp -p $(top_srcdir)/common/*.cpp .
+-	cp -p $(top_srcdir)/common/*.h .
++	cp -p $(top_srcdir)/common/$@ .
+ 
+ $(COIL_COMMON_H):
+-	cp -p $(top_srcdir)/common/*.h .
++	cp -p $(top_srcdir)/common/$@ .
+ 
+ clean-local:
+ 	rm -f *~
+--- examples/SimpleService/Makefile.in.org	2012-05-24 23:18:56.869242177 +0900
++++ examples/SimpleService/Makefile.in	2014-03-01 23:43:01.970003168 +0900
+@@ -406,7 +406,9 @@
+ # Visual Studio Project
+ #------------------------------------------------------------
+ win32_builddir = $(top_builddir)/win32/OpenRTM-aist/examples/SimpleService
+-all: all-am
++#all:  all-am
++all: $(CONSUMER_NODIST_SRC) $(PROVIDER_NODIST_SRC) # compile idl before call all-am
++	make all-am
+ 
+ .SUFFIXES:
+ .SUFFIXES: .o .so .idl Skel.cpp Stub.cpp Stub.o Skel.o .cpp .lo .obj
+--- src/ext/sdo/observer/Makefile.in.org	2012-05-24 23:18:57.293269102 +0900
++++ src/ext/sdo/observer/Makefile.in	2014-03-01 23:58:17.262037167 +0900
+@@ -334,7 +334,8 @@
+ #------------------------------------------------------------
+ win32_builddir = $(top_builddir)/win32/OpenRTM-aist/ext/sdo/observer
+ PROJNAME = ComponentObserverConsumer
+-all: all-am
++all: $(OBSERVER_NODIST_SRC)
++	make all-am
+ 
+ .SUFFIXES:
+ .SUFFIXES: .o .so .idl Skel.cpp Stub.cpp Stub.o Skel.o .cpp .lo .obj
+@@ -659,6 +660,7 @@
+ 
+ 
+ .idlSkel.cpp:
++	(cd $(top_builddir)/utils/rtm-config; make)
+ 	echo $(PROVIDER_OBJ)
+ 	$(IDLC) $(IDLFLAGS) $<
+ 	PYTHONPATH="$(top_srcdir)/build:$(PYTHONPATH)" \
+@@ -666,6 +668,7 @@
+ 	$(WRAPPER) $(WRAPPER_FLAGS) --idl-file=$<
+ 
+ .idlStub.cpp:
++	(cd $(top_builddir)/utils/rtm-config; make)
+ 	$(IDLC) $(IDLFLAGS) $<
+ 	PYTHONPATH="$(PYTHONPATH):$(top_srcdir)/build" \
+ 	PATH="$(top_srcdir)/utils/rtm-config:$(PATH)"  \
