@@ -45,9 +45,24 @@ install(
   DIRECTORY ${CATKIN_DEVEL_PREFIX}/include/coil-1.1
   DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION})
 install(
-  DIRECTORY ${CATKIN_DEVEL_PREFIX}/lib/
+  DIRECTORY ${CATKIN_DEVEL_PREFIX}/lib/openrtm-1.1
+            ${CATKIN_DEVEL_PREFIX}/lib/openrtm_aist
   DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   USE_SOURCE_PERMISSIONS)
+install(
+  FILES ${CATKIN_DEVEL_PREFIX}/lib/libRTC-1.1.0.so
+        ${CATKIN_DEVEL_PREFIX}/lib/libRTC.a
+        ${CATKIN_DEVEL_PREFIX}/lib/libRTC.la
+        ${CATKIN_DEVEL_PREFIX}/lib/libRTC.so
+        ${CATKIN_DEVEL_PREFIX}/lib/libcoil-1.1.0.so
+        ${CATKIN_DEVEL_PREFIX}/lib/libcoil.a
+        ${CATKIN_DEVEL_PREFIX}/lib/libcoil.la
+        ${CATKIN_DEVEL_PREFIX}/lib/libcoil.so
+  DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
+install(
+  FILES ${CATKIN_DEVEL_PREFIX}/lib/pkgconfig/libcoil.pc
+        ${CATKIN_DEVEL_PREFIX}/lib/pkgconfig/openrtm-aist.pc
+  DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}/pkgconfig/)
 install(DIRECTORY test share
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
   USE_SOURCE_PERMISSIONS)
