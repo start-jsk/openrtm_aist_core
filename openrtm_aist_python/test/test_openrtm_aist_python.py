@@ -17,6 +17,17 @@ class TestCode(unittest.TestCase):
         import RTC
         self.assertTrue(True)
 
+    def test_import_rtcd(self):
+        import OpenRTM_aist.utils.rtcd
+        self.assertTrue(True)
+
+    def test_manager_init(self):
+        import OpenRTM_aist
+        import RTC
+        mgr = OpenRTM_aist.Manager.init(sys.argv)
+        self.assertTrue(True)
+
+#unittest.main()
 if __name__ == '__main__':
     import rostest
     rostest.rosrun(PKG, 'test_openrtm_aist_python', TestCode)
