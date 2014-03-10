@@ -6,6 +6,12 @@ project(openrtm_aist_python)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS mk rostest)
 
+# https://github.com/start-jsk/openrtm_aist_core/issues/25 (builing on Arch Linux)
+if(EXISTS "/etc/debian_version")
+  set(SETUPTOOLS_ARG_EXTRA "--install-layout=deb")
+else()
+  set(SETUPTOOLS_ARG_EXTRA "")
+endif()
 # Build openrtm_aist_python
 # <devel>/lib/<package>/bin
 # <devel>/lib/python2.7/dist-packages
@@ -18,6 +24,7 @@ if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/installed)
     INSTALL_SCRIPTS_DIR=${CATKIN_DEVEL_PREFIX}/lib/${PROJECT_NAME}
     MK_DIR=${mk_PREFIX}/share/mk
     MD5SUM_FILE=${PROJECT_SOURCE_DIR}/OpenRTM-aist-Python-1.1.0-RC1.tar.gz.md5sum
+    SETUPTOOLS_ARG_EXTRA=${SETUPTOOLS_ARG_EXTRA}
     RESULT_VARIABLE _make_failed)
   if (_make_failed)
     message(FATAL_ERROR "Build of OpenRTM Python failed")
