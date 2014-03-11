@@ -9,8 +9,8 @@
 
 
   <export>
-    <python path="${prefix}/lib/python2.7/site-packages" />
-    <python path="${prefix}/lib/python2.7/site-packages/OpenRTM_aist/RTM_IDL" />
+    <python path="${prefix}/lib/python2.7/dist-packages" />
+    <python path="${prefix}/lib/python2.7/dist-packages/OpenRTM_aist/RTM_IDL" />
   </export>
 
   <rosdep name="python-omniorb" />

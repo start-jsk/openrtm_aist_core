@@ -25,3 +25,4 @@ endif(_make_failed)
 ## clean
 set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${CMAKE_SOURCE_DIR}/src/openrtm")
 
+rosbuild_add_rostest(test/test_openrtm_aist_python.test)
