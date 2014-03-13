@@ -12,6 +12,7 @@
   <rosdep name="omniorb" />
   <rosdep name="mk" />
   <rosdep name="rostest" />
+  <rosdep name="rosbash" />
 
 </package>
 
