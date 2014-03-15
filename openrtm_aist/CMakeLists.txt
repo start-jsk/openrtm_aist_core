@@ -25,3 +25,4 @@ endif(_make_failed)
 ## clean
 set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${CMAKE_SOURCE_DIR}/bin;${CMAKE_SOURCE_DIR}/lib;${CMAKE_SOURCE_DIR}/etc;${CMAKE_SOURCE_DIR}/include;${CMAKE_SOURCE_DIR}/share")
 
+rosbuild_add_rostest(test/test_openrtm_aist.test)
