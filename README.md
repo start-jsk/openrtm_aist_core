@@ -9,6 +9,6 @@ Test Status
 
 [![Hydro Test Satus](http://jenkins.ros.org/job/devel-hydro-openrtm_aist_core/test/trend)](http://jenkins.ros.org/job/devel-hydro-openrtm_aist_core/)
 
-[Groovy](http://jenkins.ros.org/job/devel-groovy-rtshell_core/)
+[Groovy](http://jenkins.ros.org/job/devel-groovy-openrtm_aist_core/)
 
 [![Groovy Test Satus](http://jenkins.ros.org/job/devel-groovy-openrtm_aist_core/test/trend)](http://jenkins.ros.org/job/devel-groovy-openrtm_aist_core/)
