@@ -29,6 +29,7 @@
 
   <run_depend>uuid</run_depend>
   <run_depend>omniorb</run_depend>
+  <run_depend>rosbash</run_depend>
 
   <export>
   </export>
