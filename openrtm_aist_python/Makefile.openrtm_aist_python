@@ -11,8 +11,10 @@ MD5SUM_FILE = $(FILENAME).md5sum
 MK_DIR      = $(shell rospack find mk)
 
 include $(MK_DIR)/download_unpack_build.mk
-PYTHONDIR   = `python -c 'import sys; print "python%s"%sys.version[:3]'`
+PYTHONBIN   = python2
+PYTHONDIR   = `$(PYTHONBIN) -c 'import sys; print "python%s"%sys.version[:3]'`
+SETUPTOOLS_ARG_EXTRA = "--install-layout=deb"
 
 installed: $(SOURCE_DIR)/unpacked
-	cd $(SOURCE_DIR) && python ./setup.py build && python ./setup.py install --prefix=$(INSTALL_DIR) --install-scripts $(INSTALL_SCRIPTS_DIR) --install-layout=deb 
+	cd $(SOURCE_DIR) && $(PYTHONBIN) ./setup.py build && $(PYTHONBIN) ./setup.py install --prefix=$(INSTALL_DIR) --install-scripts $(INSTALL_SCRIPTS_DIR) $(SETUPTOOLS_ARG_EXTRA)
 	touch installed
