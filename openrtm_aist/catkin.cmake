@@ -50,14 +50,16 @@ install(
   DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   USE_SOURCE_PERMISSIONS)
 install(
-  FILES ${CATKIN_DEVEL_PREFIX}/lib/libRTC-1.1.0.so
-        ${CATKIN_DEVEL_PREFIX}/lib/libRTC.a
-        ${CATKIN_DEVEL_PREFIX}/lib/libRTC.la
-        ${CATKIN_DEVEL_PREFIX}/lib/libRTC.so
-        ${CATKIN_DEVEL_PREFIX}/lib/libcoil-1.1.0.so
+  PROGRAMS ${CATKIN_DEVEL_PREFIX}/lib/libRTC-1.1.0.so
+           ${CATKIN_DEVEL_PREFIX}/lib/libRTC.la
+           ${CATKIN_DEVEL_PREFIX}/lib/libRTC.so
+           ${CATKIN_DEVEL_PREFIX}/lib/libcoil-1.1.0.so
+           ${CATKIN_DEVEL_PREFIX}/lib/libcoil.la
+           ${CATKIN_DEVEL_PREFIX}/lib/libcoil.so
+  DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
+install(
+  FILES ${CATKIN_DEVEL_PREFIX}/lib/libRTC.a
         ${CATKIN_DEVEL_PREFIX}/lib/libcoil.a
-        ${CATKIN_DEVEL_PREFIX}/lib/libcoil.la
-        ${CATKIN_DEVEL_PREFIX}/lib/libcoil.so
   DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
 install(
   FILES ${CATKIN_DEVEL_PREFIX}/lib/pkgconfig/libcoil.pc
