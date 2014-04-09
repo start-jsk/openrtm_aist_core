@@ -15,6 +15,12 @@ MK_DIR      = $(shell rospack find mk)
 
 include $(MK_DIR)/download_unpack_build.mk
 
-installed: $(SOURCE_DIR)/unpacked
-	cd $(SOURCE_DIR) && ./configure --enable-debug --prefix=${INSTALL_DIR} --bindir=${INSTALL_BIN_DIR} --datarootdir=${INSTALL_DATA_DIR} && make -j`grep -c '^processor' /proc/cpuinfo` && make install
+clean:
+	cd $(SOURCE_DIR) && make clean
+
+$(SOURCE_DIR)/Makefile: $(SOURCE_DIR)/unpacked
+	cd $(SOURCE_DIR) && ./configure --enable-debug --prefix=${INSTALL_DIR} --bindir=${INSTALL_BIN_DIR} --datarootdir=${INSTALL_DATA_DIR}
+
+installed: $(SOURCE_DIR)/Makefile
+	cd $(SOURCE_DIR) && make -j`grep -c '^processor' /proc/cpuinfo` && make install
 	touch installed
