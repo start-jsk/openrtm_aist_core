@@ -8,6 +8,9 @@ find_package(catkin REQUIRED mk rostest)
 # <devel>/lib/<package>/bin/rtcd
 # <devel>/lib/libRTC...
 # <src>/<package>/share
+if(NOT openrtm_aist_FOUND)
+  file(REMOVE ${CMAKE_CURRENT_BINARY_DIR}/installed)
+endif()
 if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/installed)
   execute_process(
     COMMAND cmake -E chdir ${CMAKE_CURRENT_BINARY_DIR}
