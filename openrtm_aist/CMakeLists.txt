@@ -16,6 +16,11 @@ include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
 rosbuild_init()
 
 # Build OpenRTM
+execute_process(COMMAND omniidl -V
+                RESULT_VARIABLE have_omniidl)
+if(NOT "${have_omniidl}" STREQUAL "0")
+  message(FATAL_ERROR "CORBA compiler is not found, forget to install omniidl?")
+endif()
 execute_process(COMMAND cmake -E chdir ${PROJECT_SOURCE_DIR} make -f Makefile.openrtm_aist
                 RESULT_VARIABLE _make_failed)
 if (_make_failed)

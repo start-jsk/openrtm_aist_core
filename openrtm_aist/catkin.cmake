@@ -11,6 +11,11 @@ find_package(catkin REQUIRED mk rostest)
 if(NOT openrtm_aist_FOUND)
   file(REMOVE ${CMAKE_CURRENT_BINARY_DIR}/installed)
 endif()
+execute_process(COMMAND omniidl -V
+                RESULT_VARIABLE have_omniidl)
+if(NOT "${have_omniidl}" STREQUAL "0")
+  message(FATAL_ERROR "CORBA compiler is not found, forget to install omniidl?")
+endif()
 if(NOT EXISTS ${CMAKE_CURRENT_BINARY_DIR}/installed)
   execute_process(
     COMMAND cmake -E chdir ${CMAKE_CURRENT_BINARY_DIR}
