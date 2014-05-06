@@ -14,6 +14,8 @@
 
   <license>EPL</license>
   <url type="website">http://ros.org/wiki/openrtm_aist_python</url> -->
+  <url type="repository">https://github.com/start-jsk/openrtm_aist_core</url>
+  <url type="bugtracker">https://github.com/start-jsk/openrtm_aist_core/issues</url>
 
   <buildtool_depend>catkin</buildtool_depend>
 
