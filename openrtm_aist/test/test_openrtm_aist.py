@@ -32,14 +32,14 @@ class TestCompile(unittest.TestCase):
     def test_compile_pkg_config(self):
         global PID
         print "`pkg-config openrtm-aist --cflags --libs` =",check_output("%s pkg-config openrtm-aist --cflags --libs"%(self.PKG_CONFIG_PATH), shell=True, stderr=STDOUT)
-        print "%s gcc -o openrtm-sample-pkg-config /tmp/%d-openrtm-sample.cpp `pkg-config openrtm-aist --cflags --libs`"%(self.PKG_CONFIG_PATH, PID)
-        ret = call("gcc -o openrtm-sample-pkg-config /tmp/%d-openrtm-sample.cpp `%s pkg-config openrtm-aist --cflags --libs`"%(PID, self.PKG_CONFIG_PATH), shell=True)
+        print "%s g++ -o openrtm-sample-pkg-config /tmp/%d-openrtm-sample.cpp `pkg-config openrtm-aist --cflags --libs`"%(self.PKG_CONFIG_PATH, PID)
+        ret = call("g++ -o openrtm-sample-pkg-config /tmp/%d-openrtm-sample.cpp `%s pkg-config openrtm-aist --cflags --libs`"%(PID, self.PKG_CONFIG_PATH), shell=True)
         self.assertTrue(ret==0)
 
     def test_compile_rtm_config(self):
         global PID
         print "`rosrun openrtm_aist rtm-config --cflags --libs` =",check_output("rosrun openrtm_aist rtm-config --cflags --libs", shell=True, stderr=STDOUT)
-        ret = call("gcc -o openrtm-sample-pkg-config /tmp/%d-openrtm-sample.cpp `rosrun openrtm_aist rtm-config --cflags --libs`"%(PID), shell=True)
+        ret = call("g++ -o openrtm-sample-pkg-config /tmp/%d-openrtm-sample.cpp `rosrun openrtm_aist rtm-config --cflags --libs`"%(PID), shell=True)
         self.assertTrue(ret==0)
 
     def test_share(self):
