@@ -41,6 +41,12 @@ endif()
 catkin_package(
 )
 
+add_custom_command(
+  OUTPUT ${CATKIN_DEVEL_PREFIX}/bin/rtm-config
+  COMMAND cmake -E copy ${CATKIN_DEVEL_PREFIX}/lib/openrtm_aist/bin/rtm-config ${CATKIN_DEVEL_PREFIX}/bin/rtm-config
+  DEPENDS ${CATKIN_DEVEL_PREFIX}/lib/openrtm_aist/bin/rtm-config
+)
+add_custom_target(copy_rtm_config ALL DEPENDS ${CATKIN_DEVEL_PREFIX}/bin/rtm-config)
 #############
 ## Install ##
 #############
@@ -76,6 +82,9 @@ install(
 install(DIRECTORY test share
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
   USE_SOURCE_PERMISSIONS)
+install(
+  FILES ${CATKIN_DEVEL_PREFIX}/bin/rtm-config
+  DESTINATION ${CATKIN_GLOBAL_BIN_DESTINATION})
 
 # #debug codes
 # #get_cmake_property(_variableNames VARIABLES)
