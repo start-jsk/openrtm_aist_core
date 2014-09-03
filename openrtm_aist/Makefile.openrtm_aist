@@ -22,5 +22,5 @@ $(SOURCE_DIR)/Makefile: $(SOURCE_DIR)/unpacked
 	cd $(SOURCE_DIR) && ./configure --enable-debug --prefix=${INSTALL_DIR} --bindir=${INSTALL_BIN_DIR} --datarootdir=${INSTALL_DATA_DIR}
 
 installed: $(SOURCE_DIR)/Makefile
-	cd $(SOURCE_DIR) && make -j`grep -c '^processor' /proc/cpuinfo` && make install
+	cd $(SOURCE_DIR) && make -j4 && make install
 	touch installed
